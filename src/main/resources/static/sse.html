@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello SSE</title>
+    <script>
+        var sse = new EventSource("/sse"); // H5里才有的对象，多数浏览器都支持这个，用这个的时候必须走http协议，Low。要想不Low，Netty发TCP长连接，websocket
+        sse.onmessage = function(data){
+            console.log(data);
+            document.getElementById("msg").innerText = data.data;
+            //document.body.innerText += data.data + "<br>"
+        }
+    </script>
+  
+</head>
+<body>
+    <span id="msg">
+        Hello, SSE!
+    </span>
+</body>
+</html>
