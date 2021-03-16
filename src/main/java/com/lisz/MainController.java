@@ -2,6 +2,7 @@ package com.lisz;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import java.util.Date;
 
@@ -17,5 +18,32 @@ public class MainController {
 		//这里最前面要有"data:", 以便前端以".data"的方式获取推送过去的数据，最后要加上消息的结尾符，表明一次推送数据的终止
 		// http://192.168.1.102:8080/sse.html
 		return "data:" + dateStr + "\n\n";
+	}
+
+	@GetMapping("/blocking")
+	public String get1(){
+		System.out.println("--------1");
+		// Service
+		String result = getResult();
+		System.out.println("--------2");
+		return result;
+	}
+
+	@GetMapping("/reactive")
+	public Mono<String> get2(){
+		System.out.println("--------1");
+		// Service
+		Mono<String> result = Mono.create(sink -> getResult());
+		System.out.println("--------2");
+		return result;
+	}
+
+	private String getResult() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return "abc";
 	}
 }
