@@ -11,7 +11,7 @@ public class ReactorTest {
 	public static void main(String[] args) {
 		String s[] = new String[]{"aa", "bb"};
 		Flux<String> flux1 = Flux.just(s); // 已知数据用just
-		flux1.subscribe(System.out::println); // println是订阅者，基本上是一对一的
+		flux1.subscribe(System.out::println); // println是观察者，基本上是一对一的，被观察者订阅观察者
 
 		Flux<String> flux2 = Flux.just("cc", "dd");
 		flux2.subscribe(System.out::println);
@@ -42,13 +42,13 @@ public class ReactorTest {
 			sink.complete();
 		}).subscribe(System.out::print);
 
-		// 异步用create next 可以被多次调用
+		// 异步用create next 可以被多次调用，Flux是一组多个被观察者，所以可以next好多
 		Flux.create(sink -> {
 			for (int i = 0; i < 10; i++) {
 				sink.next("bb:" + i); //next的执行线程不是同一个
 			}
 			sink.complete();
-		}).subscribe(System.out::println);
+		}).subscribe(System.out::println); // 被观察者订阅观察者
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {

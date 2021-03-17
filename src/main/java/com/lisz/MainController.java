@@ -34,7 +34,7 @@ public class MainController {
 		System.out.println("--------1");
 		// Service
 		Mono<String> result = Mono.create(sink -> getResult());
-		System.out.println("--------2");
+		System.out.println("--------2" + result);
 		return result;
 	}
 
