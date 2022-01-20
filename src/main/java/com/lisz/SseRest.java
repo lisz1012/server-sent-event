@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-// SSE 底层就是靠Stream实现的，其实就是在下载东西，只是下载的时候有的时候没给客户端内容。靠的是浏览器内部的时间驱动
+// SSE 底层就是靠Stream实现的，其实就是在下载东西，只是下载的时候有的时候没给客户端内容。靠的是浏览器内部的事件驱动
 // 交互性比较强的场景，跟Ajax差不多，但是后者会频繁发请求
 // SSE 不同于websocket的地方是：他并不是全双工，一个请求到服务端之后不能再发新的到服务端的信息，而是只能等着服务端有消息的时候就返回来
 // SSE 应用场景：股票行情更新，只是展示，而不是交互。即时通知
@@ -38,7 +38,7 @@ public class SseRest {
 	public String push(String id, String content) throws IOException {
 		SseEmitter sseEmitter = sseCache.get(id);
 		if (sseEmitter != null) {
-			// 发送消息
+			// Server向Client发送消息
 			sseEmitter.send(content);
 		}
 		return "over";
