@@ -22,6 +22,13 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- 切换容器的实现：默认用Netty，而 spring-boot-starter-web 默认引用了Tomcat，所以Netty就被替换成了Tomcat
+		 所以要把spring-boot-starter-web这个依赖注释掉，再启动就成了Netty了-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
