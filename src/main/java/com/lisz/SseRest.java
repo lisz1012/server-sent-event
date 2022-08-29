@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 // SSE 不同于websocket的地方是：他并不是全双工，一个请求到服务端之后不能再发新的到服务端的信息，而是只能等着服务端有消息的时候就返回来
 // SSE 应用场景：股票行情更新，只是展示，而不是交互。即时通知
 // SSE 是无状态连接，服务器推送，Server Sent Event
-// 题外话，异步调用能提升性能吗？对于简单的、计算密集度高的请求，反而会降低性能。一般异步调用能提升整体的吞吐量（防止雪崩）
+// 题外话，异步调用能提升性能吗？对于简单的、计算密集度高的请求，反而会降低性能。一般异步调用能提升整体的吞吐量（防止雪崩）。
 @RestController
 @RequestMapping(path = "/sse")
 public class SseRest {
