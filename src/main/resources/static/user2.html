@@ -14,8 +14,8 @@
 <script>
     <!-- H5 里的对象 -->
 
-    var source = new EventSource('http://192.168.1.102/sse/subscribe?id=user2'); <!-- 这里要写IP的话，浏览器里也要访问IP，而不是localhost，否则跨域COR错误 -->
-    source.onmessage = function (event) {
+    var source = new EventSource('http://192.168.1.91/sse/subscribe?id=user2'); <!-- 这里要写IP的话，浏览器里也要访问IP，而不是localhost，否则跨域COR错误 -->
+    source.onmessage = function (event) { // 浏览器内部给做的的事件驱动
         text = document.getElementById('result').innerText;
         text += '\n' + event.data;
         document.getElementById('result').innerText = text;

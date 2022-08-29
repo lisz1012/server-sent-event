@@ -13,8 +13,8 @@
 </html>
 <script>
     <!-- H5里的对象！ -->
-    var source = new EventSource('http://192.168.1.102/sse/subscribe?id=user1');
-    source.onmessage = function (event) {
+    var source = new EventSource('http://192.168.1.91/sse/subscribe?id=user1'); // 发送一个不立即finish的http请求，不断的从服务端接收event-stream回来，自始至终就这么一个请求
+    source.onmessage = function (event) { // 浏览器内部给做的的事件驱动
         text = document.getElementById('result').innerText;
         text += '\n' + event.data;
         document.getElementById('result').innerText = text;
