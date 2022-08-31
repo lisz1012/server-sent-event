@@ -18,6 +18,11 @@ public class PersonService {
 	}
 
 	public Person getPerson() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 		return map.get(1);
 	}
 

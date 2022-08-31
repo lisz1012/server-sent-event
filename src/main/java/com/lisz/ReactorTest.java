@@ -42,12 +42,14 @@ public class ReactorTest {
 
 		// 同步动态创建，next 只能被调用一次,否则报错：More than one call to onNext
 		Flux.generate(sink -> {
+			System.out.println("Sub thread of generate: " + Thread.currentThread().getName());
 			sink.next("aa");
 			sink.complete();
 		}).subscribe(System.out::print);
 
 		// 异步用create next 可以被多次调用，Flux是一组多个被观察者，所以可以next好多
 		Flux.create(sink -> {
+			System.out.println("Sub thread of create: " + Thread.currentThread().getName());
 			for (int i = 0; i < 10; i++) {
 				sink.next("bb:" + i); //next的执行线程不是同一个
 			}

@@ -33,9 +33,12 @@ public class MainController {
 	public Mono<String> get2(){
 		System.out.println("--------1");
 		// Service
-		Mono<String> result = Mono.create(sink -> getResult());
-		System.out.println("--------2" + result);
-		return result;
+		Mono<String> result = Mono.create(sink -> {
+			sink.success(getResult());
+		});
+		System.out.println(Thread.currentThread().getName());
+		System.out.println("--------2");  // 1和2先在后台打印出来，数据待5s之后才显示在浏览器端，先把水管子返回，等着有水了，再滴答到客户端。此时客户端还没结束, 底层是SSE
+		return result;  // 这个return并不是直接return给了客户端，而是把一个空的Mono给了netty容器，由后者在得到可用的数据之后，做服务端推，推给前端。return的这一瞬间，那个String结果其实并没有准备好
 	}
 
 	private String getResult() {
@@ -44,6 +47,8 @@ public class MainController {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		System.out.println(Thread.currentThread().getName());
+		System.out.println("called");
 		return "abc";
 	}
 }
