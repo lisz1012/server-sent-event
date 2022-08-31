@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 public class ReactorTest {
 	public static void main(String[] args) {
+		System.out.println("Main thread is: " + Thread.currentThread().getName());
 		String s[] = new String[]{"aa", "bb"};
 		Flux<String> flux1 = Flux.just(s); // 已知数据用just
 		flux1.subscribe(System.out::println); // println是观察者，基本上是一对一的，被观察者订阅观察者
@@ -22,7 +23,10 @@ public class ReactorTest {
 
 		Stream<String> stream = Stream.of("hi", "hello");
 		Flux<String> flux4 = Flux.fromStream(stream);
-		flux4.subscribe(System.out::println);
+		flux4.subscribe(i -> {
+			System.out.println(i);
+			System.out.println("Sub thread: " + Thread.currentThread().getName()); // 这里的执行线程也是主线程
+		});
 
 		Flux<Integer> range = Flux.range(0, 5);
 		range.subscribe(System.out::println);
