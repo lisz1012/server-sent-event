@@ -12,7 +12,7 @@ public class ReactorTest {
 		System.out.println("Main thread is: " + Thread.currentThread().getName());
 		String s[] = new String[]{"aa", "bb"};
 		Flux<String> flux1 = Flux.just(s); // 已知数据用just
-		flux1.subscribe(System.out::println); // println是观察者，基本上是一对一的，被观察者订阅观察者
+		flux1.subscribe(System.out::println); // println是观察者，基本上是一对一的，被观察者订阅观察者，或者从右往左反过来读
 
 		Flux<String> flux2 = Flux.just("cc", "dd");
 		flux2.subscribe(System.out::println);
