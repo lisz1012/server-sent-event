@@ -18,6 +18,7 @@ public class PersonService {
 	}
 
 	public Person getPerson() {
+		System.out.println(Thread.currentThread().getName());
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
